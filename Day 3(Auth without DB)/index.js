@@ -13,6 +13,9 @@ app.use(express.urlencoded({extended: true}));
 
 //MiddleWare    --Ending
 
+//use the HTML
+app.use(express.static("public"));
+
 app.listen(PORT, ()=>{
     console.log(`Server Running at ${PORT}`);
 })
