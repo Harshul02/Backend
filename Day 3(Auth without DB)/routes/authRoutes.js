@@ -1,11 +1,12 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
 const router = express.Router();
 
 let users = {
 
 }
 
-router.post("/signup", (req,res)=>{
+router.post("/signup", async (req,res)=>{
     try{
         const {name, email, password} = req.body;
         console.log(name, email, password);
@@ -25,10 +26,11 @@ router.post("/signup", (req,res)=>{
         {
             res.send("Invalid Password");
         }
-
-        users[email] = {name, password};
+        const Fpassword = await bcrypt.hash(password, 10);
+        users[email] = {name, password: Fpassword};
+        res.send("Success");
     }
-    catch(e){}
+    catch(e){res.send(e);}
 });
 
 module.exports = router;
