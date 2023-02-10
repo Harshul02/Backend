@@ -1,5 +1,5 @@
 const express = require("express");
-
+const routes = require("./routes/authRoutes")
 const app = express();
 
 const PORT = 5000;
@@ -15,6 +15,8 @@ app.use(express.urlencoded({extended: true}));
 
 //use the HTML
 app.use(express.static("public"));
+
+app.use("/api/v1", routes)
 
 app.listen(PORT, ()=>{
     console.log(`Server Running at ${PORT}`);
