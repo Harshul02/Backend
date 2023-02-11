@@ -1,8 +1,12 @@
 const express = require("express");
 const routes = require("./routes/authRoutes")
 const app = express();
-
+const createDB = require("../Day 4(Auth with DB)/config/db");
 const PORT = 5000;
+
+createDB.sync().then(() =>{
+    console.log("Connected To DB");
+});
 
 //MiddleWare    --Starting
 
