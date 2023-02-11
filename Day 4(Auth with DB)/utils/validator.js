@@ -4,7 +4,7 @@ const validateName = (name)=>{
 }
 
 const validateEmail = (email)=>{
-    const reg = new RegExp(/^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/);
+    const reg = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
     return reg.test(email);
 }
 

@@ -7,15 +7,17 @@ const {
     validatePassword
 } = require('../utils/validator.js')
 
-let users = {
-
-}
+const User = require("../models/userModels");
 
 router.post("/signup", async (req,res)=>{
     try{
         const {name, email, password} = req.body;
         console.log(name, email, password);
-        const userExist = users.hasOwnProperty(email);
+        const userExist = await User.findOne({
+            where:{
+                email 
+            }
+        });
         
         if(userExist){
             res.send("User Exist");
@@ -31,9 +33,13 @@ router.post("/signup", async (req,res)=>{
         {
             res.send("Invalid Password");
         }
-        const Fpassword = await bcrypt.hash(password, 10);
-        users[email] = {name, password: Fpassword};
-        res.send("Success");
+        const hashedPassword = await bcrypt.hash(password, 10);
+        
+        const saveToDb = {
+            name, email, hashedPassword
+        }
+        const createdUser = await User.create(saveToDb);
+        return res.status(500), send(err.message);
     }
     catch(e){res.send(e);}
 });
